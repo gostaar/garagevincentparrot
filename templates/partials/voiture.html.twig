@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage{% endblock %}
+
+{% block body %}
+
+  <section class="container d-flex flex-row" >
+      {% if voiture.EstVendu %}
+      <div>Aucune voiture pour le moment.</div>
+      {% else %}
+      {% for voiture in voitures %}
+      <div class="item d-flex flex-column" id="boucle-voiture">
+        <img src="{{ asset('img/' ~ voiture.ImagePrincipale) }}" id="img-voiture" alt="{{voiture.Titre}}">
+        <div class="card-body">
+          <h class="title">{{voiture.Titre}}</h5>
+          <p id="prix-voiture">{{voiture.Prix}} €<p>
+          <p>{{voiture.Km}} km</p>
+          <a href="{{path('voiture', {'id':voiture.id})}}" class="btn btn-primary">Détails</a>
+        </div>
+      </div>
+          {% endfor %}
+          {% endif %}
+
+        </section>
+
+
+{% endblock %}

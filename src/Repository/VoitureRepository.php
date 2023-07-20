@@ -21,6 +21,29 @@ class VoitureRepository extends ServiceEntityRepository
         parent::__construct($registry, Voiture::class);
     }
 
+    public function getAnnonces($filters = null){
+
+        $query = $this->createQueryBuilder('a')
+        ;
+            if ($filters != null){
+            $query->andWhere('a.prix IN(:cats)')
+            ->setParameter(':cats', ($filters));
+        }
+        ;
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTotal($filters = null) {
+        $query = $this->createQueryBuilder('a')
+        ->select('COUNT(a)');
+
+        if ($filters != null){
+            $query->andWhere('a.prix IN(:cats)')
+            ->setParameter(':cats', ($filters));
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+}
 //    /**
 //     * @return Voiture[] Returns an array of Voiture objects
 //     */

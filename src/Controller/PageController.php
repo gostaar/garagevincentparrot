@@ -8,10 +8,12 @@ use App\Entity\Contact;
 use App\Entity\Horaire;
 use App\Entity\Voiture;
 use App\Form\ContactType;
+use App\Repository\GarageRepository;
 use App\Repository\ContactRepository;
 use App\Repository\HoraireRepository;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,19 +62,34 @@ class PageController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function garage(Garage $garage, Voiture $voiture, VoitureRepository $voitures, Environment $twig,  ): Response
+    public function garage(Request $request, Garage $garage, GarageRepository $garageR, Voiture $voiture, VoitureRepository $voitures, Environment $twig,  ): Response
     {
-        return new Response($twig->render('page/garage.html.twig', [
-            'garage' => $garage,
-            'voiture' => $voiture,
-            'voitures' => $voitures->findAll(),
+        $garage = $garageR->findAll();
+        $Voiture = $voitures->findAll();
+        $caracteristiques = $voiture->getCaracteristique();
+        $equipement = $voiture->getEquipements();
+        $galerie = $voiture->getGalerieImage();
 
-            'equipements' => $voiture->getEquipements(),
-            'caracteristique' => $voiture->getCaracteristique(),
-            'galerie' => $voiture->getGalerieImage(),
 
-        ]));
+        //on récupère les filres
+        $filters = $request->get("prix", 1);
+
+        $annonces = $voitures->getAnnonces($filters);
+        
+        $total = $voitures->getTotal($filters);
+
+        if($request->get('ajax')){
+            return new JsonResponse([
+                'content' => $this->renderView('page/garage.html.twig')
+            ]);
+        };
+      
+
+        return $this->render('page/garage.html.twig');
+            
+           
       } 
+
       #[Route('/voiture', name: 'voiture_index')]
       public function voiture(Environment $twig, Voiture $voiture, VoitureRepository $voitureRepository): Response
       {
@@ -111,5 +128,16 @@ class PageController extends AbstractController
           ]));
       } 
 
+      #[Route('/voiture', name: 'voitures')]
+      public function Voitures(Environment $twig, Voiture $voiture, VoitureRepository $voitureRepository): Response
+      {
+          return new Response($twig->render('partials/voiture.html.twig', [
+              'voiture' => $voiture,
+              'voitures' => $voitureRepository->findBy(['prix' => $voiture->getPrix()]),
+              'equipements' => $voiture->getEquipements(),
+              'caracteristique' => $voiture->getCaracteristique(),
+              'galerie' => $voiture->getGalerieImage(),
+          ]));
+      } 
 
 }

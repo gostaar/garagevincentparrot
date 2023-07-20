@@ -4,10 +4,10 @@
         <ul class="nav m-auto ">
           <li class="nav-item activeClass('home')"><a href="{{ path('home') }}" class="nav-link link-body-emphasis px-2" id="acceuil">Accueil</a></li>
           
-          <li class="nav-item activeClass('Service')"><a href="{{ path('home') }}" class="nav-link link-body-emphasis px-2" id="service">Services</a></li>
+          {# <li class="nav-item activeClass('Service')"><a href="{{ path('home') }}" class="nav-link link-body-emphasis px-2" id="service">Services</a></li> #}
           <li class="nav-item activeClass('Contact')"><a href="{{ path('page_contact') }}" class="nav-link link-body-emphasis px-2" id="contact">Contact</a></li>
           <li class="nav-item activeClass('Horaire')"><a href="{{path('horaire', {'id' : 1})}}" class="nav-link link-body-emphasis px-2" id="horaire">Horaire</a></li>
-  
+          <li class="nav-item activeClass('Annonce')"><a href="{{path('voitures', {'id' : 1})}}" class="nav-link link-body-emphasis px-2" id="voiture">Voitures</a></li>
         </ul>
         <ul class="nav m-auto">
         {% if app.user %}
