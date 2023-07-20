@@ -7,22 +7,30 @@ use App\Entity\Garage;
 use App\Entity\Contact;
 use App\Entity\Horaire;
 use App\Entity\Voiture;
+use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use App\Repository\HoraireRepository;
 use App\Repository\VoitureRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PageController extends AbstractController
 {
+
+    public function __construct(
+    private EntityManagerInterface $entityManager,
+) {
+        }
+
     #[Route('/page_contact', name: 'page_contact')]
     public function contact(Contact $contact, ContactRepository $contactR): Response
     {
-        $contact = new contact();
-        $form = $this->createForm(Contact::class, $contact); 
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact); 
         return $this->render('page/contact.html.twig', [
-            'contactr' => $contactR->findAll(),
+            'contactR' => $contactR->findAll(),
             'contact' => $contact,
             'comment_form' => $form,
         ]);
@@ -89,4 +97,19 @@ class PageController extends AbstractController
               'galerie' => $voiture->getGalerieImage(),
           ]));
       } 
+
+      
+      #[Route('/horaire/{id}', name: 'horaire')]
+      public function horaire(Environment $twig, horaire $horaire, horaireRepository $horaireRepository): Response
+      {
+          return new Response($twig->render('partials/hor.html.twig', [
+              'horaire' => $horaire,
+              'horaires' => $horaireRepository->findAll(),
+              'jours' => $horaire->getJour(),
+              'am' => $horaire->getAm(),
+              'pm' => $horaire->getPm(),
+          ]));
+      } 
+
+
 }

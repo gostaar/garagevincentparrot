@@ -7,6 +7,9 @@
 <main>
   <div class="container d-flex flex-column">
     <h2 id="h2-voiture">Les voitures disponibles!</h2>
+    {% if voitures|length > 0 %}
+        <div>Il y a {{ voitures|length }} voitures.</div>
+    {% endif %}
     <p>Filter</p>
     <form id="filters">
       <p><label for="send">prix</label><input type="range" min="1" max="100000" name="prix" id="send" oninput="result.value=send.value"> <input type="submit"><input type="text" id="result"></p>

@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Voiture
 {
     #[ORM\Id]
@@ -52,6 +53,12 @@ class Voiture
 
     #[ORM\ManyToOne(inversedBy: 'voitures')]
     private ?Garage $garage = null;
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->date_publication = new \DateTimeImmutable();
+    }
 
     public function __toString(): string
     {

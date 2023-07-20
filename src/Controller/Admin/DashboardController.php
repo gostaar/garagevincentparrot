@@ -57,7 +57,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Modele', 'fa-sharp fa-solid fa-tag', Modele::class);
         yield MenuItem::linkToCrud('Service', 'fa-sharp fa-solid fa-wrench', Service::class);
         yield MenuItem::linkToCrud('Temoignage', 'fa-solid fa-star', Temoignage::class);
-        // yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-user', Utilisateur::class);
+        // yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-user', UtilisateurAutheticatorAuthenticator::class);
         yield MenuItem::linkToCrud('Voiture', 'fa-solid fa-car', Voiture::class);
         /*yield MenuItem::linkToCrud('Admin', 'fa-solid fa-car', Admin::class);*/
     }

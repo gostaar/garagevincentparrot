@@ -10,7 +10,7 @@ class UtilisateurCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Utilisateur::class;
+        return UtilisateurAutheticatorAuthenticator::class;
     }
 
     public function configureFields(string $pageName): iterable
