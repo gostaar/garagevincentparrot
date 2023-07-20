@@ -29,6 +29,14 @@ class Contact
     #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    private ?Garage $garage = null;
+
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +98,18 @@ class Contact
     public function setTelephone(string $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): static
+    {
+        $this->garage = $garage;
 
         return $this;
     }

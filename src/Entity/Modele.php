@@ -24,6 +24,10 @@ class Modele
     #[ORM\OneToMany(mappedBy: 'modele', targetEntity: Voiture::class)]
     private Collection $voitures;
 
+    public function __toString(): string
+    {
+        return $this->libelle;
+    }
     public function __construct()
     {
         $this->voitures = new ArrayCollection();

@@ -1,0 +1,33 @@
+<div class="container mx-5" >
+    <div class="row">
+     <h2 id="h2-details">Détails {{voiture.Titre}}</h2>
+            <div class="d-flex p-3">
+                <img width="200rem" height="150rem" class="m-0" style="box-shadow: 1px 1px 12px rgb(0, 0, 0, 0.2);" border-radius: 10px;"" src="{{ asset('img/' ~ voiture.ImagePrincipale ) }}" >
+                {% if voiture.GalerieImage %}
+                {% for e in galerie %}
+                <img width="200rem" height="150rem" class="m-0" style="box-shadow: 1px 1px 12px rgb(0, 0, 0, 0.2);"  src="{{ asset('img/' ~ e ) }}" alt="slide">
+                {% endfor %}
+                {% endif %}
+            </div> 
+        <div class="col-4 mt-2">
+            <h4 class="text-center">{{(voiture.Prix)|number_format(2, '.', ',')}} €</h4>
+            <p class="text-center">{{voiture.Km|number_format}} km</p>
+            <p class="text-center">{{voiture.Annee}}</p>
+            <p class="text-center">{{voiture.DatePublication|date("d/m/Y")}}</p>
+        </div>
+        <div class="col-4">
+        <h4 class="text-center">Description:</h4>
+            <p class="text-center">{{voiture.Description}}</p>
+        </div>
+        <div class="col-4">
+            <h4 class="text-center">Caractéristiques:</h4>
+                {% for e in caracteristique %}
+                    <p class="text-center">● {{e}}</p>
+                {% endfor %}
+            <h4 class="text-center">Équipements:</h4>
+                {% for e in equipements %}
+                    <p class="text-center">● {{e}}</p>
+                {% endfor %}
+            </div>
+    </div>
+</div>

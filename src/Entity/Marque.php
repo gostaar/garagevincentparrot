@@ -18,6 +18,11 @@ class Marque
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    public function __toString(): string
+    {
+        return $this->libelle;
+    }
+
     #[ORM\OneToMany(mappedBy: 'marque', targetEntity: Modele::class)]
     private Collection $modeles;
 

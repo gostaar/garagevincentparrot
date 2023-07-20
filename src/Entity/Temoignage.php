@@ -23,6 +23,11 @@ class Temoignage
     #[ORM\Column]
     private ?int $note = null;
 
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
     #[ORM\Column]
     private ?\DateTimeImmutable $date_t = null;
 

@@ -1,0 +1,31 @@
+<footer id="footer">
+  <section class="container d-flex flex-wrap" id="section-footer">
+    <article >
+      <div class="nav-item text-body-secondary"><h4 id="Garage-footer">Garage</h4></div>
+      <div class="nav-item text-body-secondary"><h4 id="Parrot-footer">V. Parrot</h4></div>
+    </article>
+    <article>
+      <div class="nav-item mb-2"><h5>Navigation</h5></div>
+      <div class="nav-item mb-2"><a href="{{path('home')}}" class="nav-link p-0 text-body-secondary">Acceuil</a></div>
+      <div class="nav-item mb-2"><a href="{{path('voiture_index')}}" class="nav-link p-0 text-body-secondary">Annonces</a></div>
+      <div class="nav-item mb-2"><a href="{{path('home')}}" class="nav-link p-0 text-body-secondary">Service</a></div>
+      <div class="nav-item mb-2"><a href="{{path('page_contact')}}" class="nav-link p-0 text-body-secondary">Contact</a></div>
+    </article>
+    <article>
+      {% if app.user %}
+      <div class="nav-item mb-2"><h5>Administration</h5></div>
+      <div class="nav-item mb-2"><a href="{{path('admin')}}" class="nav-link p-0 text-body-secondary">Page d'administration</a></div>
+      {% endif %}
+    </article>
+    <article>
+      <div class="nav-item mb-2" ><h5>Suivez-nous</h5></div>
+      <div class="nav-item mb-2">
+        <a href="#">
+          <img src="img/twitter.jpg" width="50">
+          <img src="img/facebook.jpg" width="40">
+          <img src="img/instagram.jpg" width="40">
+        </a>
+      </div> 
+    </article>
+  </section>
+</footer>

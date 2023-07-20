@@ -53,6 +53,10 @@ class Voiture
     #[ORM\ManyToOne(inversedBy: 'voitures')]
     private ?Garage $garage = null;
 
+    public function __toString(): string
+    {
+        return $this->Titre;
+    }
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,26 @@
+<div class="container d-flex flex-column">
+    <h2 style="text-align:center; margin-top: 20px;">Nos heures d'ouverture</h2>
+    <div class=" align-self-stretch" width="100%">
+        <div class="item">
+        <section class="container d-flex flex-row" style="justify-content: space-evenly; padding: 10px; text-align: center;">
+            {% for horaire in horaires %}
+            <article class="item d-flex flex-column" >
+                {% for e in jours %}<br>
+                    {{ e }}
+                {% endfor %}
+            </article>    
+            <article class="item d-flex flex-column">
+                {% for e in am %}<br>
+                    {{ e }}
+                {% endfor %}
+            </article>    
+            <article class="item d-flex flex-column">
+                {% for e in pm %}<br>
+                    {{ e }}
+                {% endfor %} 
+            </article>  
+            {% endfor %}
+        </section>
+        </div>
+    </div>
+</div>

@@ -46,12 +46,20 @@ class Garage
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Service::class)]
     private Collection $services;
 
+    #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Contact::class)]
+    private Collection $contacts;
+
+    public function __toString(): string
+    {
+        return $this->adresse;
+    }
     public function __construct()
     {
         $this->voitures = new ArrayCollection();
         $this->horaires = new ArrayCollection();
         $this->temoignages = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +253,36 @@ class Garage
             // set the owning side to null (unless already changed)
             if ($service->getGarage() === $this) {
                 $service->setGarage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setGarage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getGarage() === $this) {
+                $contact->setGarage(null);
             }
         }
 

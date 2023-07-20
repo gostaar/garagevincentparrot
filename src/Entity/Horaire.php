@@ -26,6 +26,11 @@ class Horaire
     #[ORM\ManyToOne(inversedBy: 'horaires')]
     private ?Garage $garage = null;
 
+    public function __toString(): string
+    {
+        return $this->id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
